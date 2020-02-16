@@ -1,0 +1,40 @@
+{
+  "name": "webskit-gradient-parser",
+  "version": "1.0.0",
+  "description": "Converts a CSS gradient String into Object/JSON",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^5.1.0",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceangravity/webskit-gradient-parser.git"
+  },
+  "keywords": [
+    "gradient",
+    "linear-gradient",
+    "radial-gradient",
+    "conic-gradient"
+  ],
+  "author": "Juan Carlos Galindo Navarro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oceangravity/webskit-gradient-parser/issues"
+  },
+  "homepage": "https://github.com/oceangravity/webskit-gradient-parser#readme"
+}
