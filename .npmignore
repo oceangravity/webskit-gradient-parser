@@ -23,4 +23,8 @@ yarn-error.log*
 *.sln
 *.sw*
 *.iml
+*.json
+.eslintrc.js
+LICENSE
+README.md
 
