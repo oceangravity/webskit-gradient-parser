@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/oceangravity/webskit-gradient-parser.svg?branch=master)](https://travis-ci.org/oceangravity/webskit-gradient-parser)
 [![dependencies Status](https://david-dm.org/oceangravity/webskit-gradient-parser.svg)](https://david-dm.org/oceangravity/webskit-gradient-parser)
+![Node.js CI](https://github.com/oceangravity/webskit-gradient-parser/workflows/Node.js%20CI/badge.svg)
 # WebsKit Gradient Parser
 
 ## About
