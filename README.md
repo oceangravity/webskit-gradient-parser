@@ -1,3 +1,5 @@
+[![NPM version](http://img.shields.io/npm/v/webskit-gradient-parser.svg?style=flat)](https://www.npmjs.org/package/webskit-gradient-parser)
+[![NPM license](http://img.shields.io/npm/l/webskit-gradient-parser.svg?style=flat)](https://www.npmjs.org/package/webskit-gradient-parser)
 [![Build Status](https://travis-ci.org/oceangravity/webskit-gradient-parser.svg?branch=master)](https://travis-ci.org/oceangravity/webskit-gradient-parser)
 [![dependencies Status](https://david-dm.org/oceangravity/webskit-gradient-parser.svg)](https://david-dm.org/oceangravity/webskit-gradient-parser)
 ![Node.js CI](https://github.com/oceangravity/webskit-gradient-parser/workflows/Node.js%20CI/badge.svg)
