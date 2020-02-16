@@ -4,6 +4,7 @@
 [![dependencies Status](https://david-dm.org/oceangravity/webskit-gradient-parser.svg)](https://david-dm.org/oceangravity/webskit-gradient-parser)
 ![Node.js CI](https://github.com/oceangravity/webskit-gradient-parser/workflows/Node.js%20CI/badge.svg)
 # WebsKit Gradient Parser
+[![npm](https://nodei.co/npm/webskit-gradient-parser.svg?downloads=true)](https://nodei.co/npm/webskit-gradient-parser/)
 
 ## About
 
