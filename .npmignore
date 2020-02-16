@@ -27,4 +27,6 @@ package.json
 .eslintrc.js
 LICENSE
 README.md
+.travis.yml
+test.js
 
