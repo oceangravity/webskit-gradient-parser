@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/oceangravity/webskit-gradient-parser.svg?branch=master)](https://travis-ci.org/oceangravity/webskit-gradient-parser)
 # WebsKit Gradient Parser
 
 ## About
