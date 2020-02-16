@@ -1,6 +1,6 @@
 {
   "name": "webskit-gradient-parser",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Converts a CSS gradient String into Object/JSON",
   "main": "dist/index.js",
   "scripts": {
