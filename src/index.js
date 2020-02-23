@@ -77,61 +77,76 @@ module.exports.parse = function (gradient, toObject) {
     if (str.match(/(at)/g)) {
       str = str.slice(str.indexOf('at'), str.length)
       str = str.replace('at ', '')
+      const splitted = str.split(' ')
 
-      switch (str) {
-        case 'center':
-          x = '50%'
-          y = '50%'
-          break
-        case 'right top':
-        case 'top right':
-          x = '100%'
-          y = '0%'
-          break
-        case 'left top':
-        case 'top left':
-          x = '0%'
-          y = '0%'
-          break
-        case 'right bottom':
-        case 'bottom right':
-          x = '100%'
-          y = '100%'
-          break
-        case 'left bottom':
-        case 'bottom left':
-          x = '0%'
-          y = '100%'
-          break
-        case 'top':
-        case 'center top':
-        case 'top center':
-          x = '50%'
-          y = '0%'
-          break
-        case 'left':
-        case 'center left':
-        case 'left center':
-          x = '0%'
-          y = '50%'
-          break
-        case 'right':
-        case 'center right':
-        case 'right center':
-          x = '100%'
-          y = '50%'
-          break
-        case 'bottom':
-        case 'center bottom':
-        case 'bottom center':
-          x = '50%'
-          y = '100%'
-          break
-        default:
-          values = str.split(' ')
-          x = values[0]
-          y = values[1] || '50%'
-          break
+      if (splitted.length === 4) {
+        if (splitted[0] === 'left') {
+          x = splitted[1]
+        } else {
+          x = `calc(100% - ${splitted[1]})`
+        }
+
+        if (splitted[2] === 'top') {
+          y = splitted[3]
+        } else {
+          y = `calc(100% - ${splitted[3]})`
+        }
+      } else if (splitted.length === 1 || splitted.length === 2) {
+        switch (str) {
+          case 'center':
+            x = '50%'
+            y = '50%'
+            break
+          case 'right top':
+          case 'top right':
+            x = '100%'
+            y = '0%'
+            break
+          case 'left top':
+          case 'top left':
+            x = '0%'
+            y = '0%'
+            break
+          case 'right bottom':
+          case 'bottom right':
+            x = '100%'
+            y = '100%'
+            break
+          case 'left bottom':
+          case 'bottom left':
+            x = '0%'
+            y = '100%'
+            break
+          case 'top':
+          case 'center top':
+          case 'top center':
+            x = '50%'
+            y = '0%'
+            break
+          case 'left':
+          case 'center left':
+          case 'left center':
+            x = '0%'
+            y = '50%'
+            break
+          case 'right':
+          case 'center right':
+          case 'right center':
+            x = '100%'
+            y = '50%'
+            break
+          case 'bottom':
+          case 'center bottom':
+          case 'bottom center':
+            x = '50%'
+            y = '100%'
+            break
+          default:
+            values = str.split(' ')
+            x = values[0]
+            y = values[1] || '50%'
+            break
+        }
       }
     } else {
       x = '50%'
