@@ -17,7 +17,7 @@ module.exports.parse = function (gradient, toObject) {
   const shapeReg = /(ellipse|circle)/g
   const sizeReg = /(farthest-(corner|side)?|closest-(corner|side)?)/g
   const gradientType = gradient.match(type)[0]
-  const isDeg = gradientType.includes('conic');
+  const isDeg = gradientType.includes('conic')
   allElements = allElements[1].match(splitElements)
 
   for (let i = 0; i < allElements.length; i++) {
@@ -160,9 +160,22 @@ module.exports.parse = function (gradient, toObject) {
   const stopPostfix = isDeg ? 'deg' : '%'
   const minValue = `0${stopPostfix}`
   const maxValue = isDeg ? '360deg' : '100%'
-  let stops = []
+
+  // Support double-position stops: https://github.com/oceangravity/webskit-gradient-parser/issues/6
+  let cleanStops = []
   for (let i = 0; i < allElements.length; i++) {
-    const stopElements = allElements[i].match(stopValue)
+    const stopElement = allElements[i].match(stopValue)
+    if (stopElement.length === 3) {
+      cleanStops.push(`${stopElement[0]} ${stopElement[1]}`)
+      cleanStops.push(`${stopElement[0]} ${stopElement[2]}`)
+    } else {
+      cleanStops.push(allElements[i])
+    }
+  }
+
+  let stops = []
+  for (let i = 0; i < cleanStops.length; i++) {
+    const stopElements = cleanStops[i].match(stopValue)
     const color = stopElements[0]
     const stop = stopElements[1]
 
@@ -174,7 +187,7 @@ module.exports.parse = function (gradient, toObject) {
               ]
               : [
                 color,
-                i === 0 ? minValue : (i === allElements.length - 1 ? maxValue : null)
+                i === 0 ? minValue : (i === cleanStops.length - 1 ? maxValue : null)
               ]
   }
 
