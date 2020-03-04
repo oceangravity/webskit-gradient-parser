@@ -17,6 +17,7 @@ module.exports.parse = function (gradient, toObject) {
   const shapeReg = /(ellipse|circle)/g
   const sizeReg = /(farthest-(corner|side)?|closest-(corner|side)?)/g
   const gradientType = gradient.match(type)[0]
+  const isDeg = gradientType.includes('conic');
   allElements = allElements[1].match(splitElements)
 
   for (let i = 0; i < allElements.length; i++) {
@@ -49,9 +50,9 @@ module.exports.parse = function (gradient, toObject) {
   const valueToDeg = function (value) {
     if (value.match(/rad/)) {
       return radToDeg(parseFloat(value))
-    } else if (positionValue.match(/turn/)) {
+    } else if (value.match(/turn/)) {
       return turnToDeg(parseFloat(value))
-    } else if (positionValue.match(/grad/)) {
+    } else if (value.match(/grad/)) {
       return gradToDeg(parseFloat(value))
     } else {
       return value
@@ -156,22 +157,59 @@ module.exports.parse = function (gradient, toObject) {
     return { x, y }
   }
 
-  const getDefaultStopValue = function (length, position) {
-    return `${(100 / (length - 1)) * position}%`
-  }
-
+  const stopPostfix = isDeg ? 'deg' : '%'
+  const minValue = `0${stopPostfix}`
+  const maxValue = isDeg ? '360deg' : '100%'
   let stops = []
   for (let i = 0; i < allElements.length; i++) {
+    const stopElements = allElements[i].match(stopValue)
+    const color = stopElements[0]
+    const stop = stopElements[1]
+
     stops[i] =
-            allElements[i].match(stopValue).length === 2
+            stop
               ? [
-                allElements[i].match(stopValue)[0],
-                valueToDeg(allElements[i].match(stopValue)[1])
+                color,
+                isDeg ? `${valueToDeg(stop)}deg` : stop
               ]
               : [
-                allElements[i].match(stopValue)[0],
-                getDefaultStopValue(allElements.length, i)
+                color,
+                i === 0 ? minValue : (i === allElements.length - 1 ? maxValue : null)
               ]
+  }
+
+  // Get a list of consecutive missing tab stops,
+  // e.g. `[[1,1],[3,5]]` from this gradient:
+  // `linear-gradient(red 0%, blue, red 20%, blue, blue, blue, red 100%)`
+  // where stops 1, 3, 4 and 5 are missing.
+  const missingStops = []
+  let found = false
+  for (let i = 0; i < stops.length; i++) {
+    const isMissing = !stops[i][1]
+    if (isMissing && !found) {
+      missingStops.push([i])
+      found = true
+    }
+    if (!isMissing && found) {
+      missingStops[missingStops.length - 1].push(i - 1)
+      found = false
+    }
+  }
+
+  // Generate values with proper postfix for missing stops
+  for (let i = 0; i < missingStops.length; i++) {
+    const start = missingStops[i][0]
+    const end = missingStops[i][1]
+    const preValue = parseFloat(stops[start - 1][1])
+    const postValue = parseFloat(stops[end + 1][1])
+    const length = (end - start) + 2
+    const increment = (postValue - preValue) / length
+    let value = preValue
+    for (let j = 0; j < length; j++) {
+      value += increment
+      const printValue = +value.toFixed(2) // the `+` is necessary, converts back to number
+      stops[start + j][1] = `${printValue}${stopPostfix}`
+    }
   }
 
   const getShape = function (data) {
