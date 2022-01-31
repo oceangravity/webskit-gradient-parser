@@ -95,6 +95,7 @@ module.exports.parse = function (gradient, toObject) {
       } else if (splitted.length === 1 || splitted.length === 2) {
         switch (str) {
           case 'center':
+          case 'center center':
             x = '50%'
             y = '50%'
             break
